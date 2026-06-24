@@ -208,6 +208,7 @@ if (orderForm) {
         const quantityVal = quantitySelect.value;
         const qtyText = pricingText[quantityVal];
         const finalPrice = pricing[quantityVal];
+        const orderId = 'order_' + Date.now() + '_' + Math.floor(Math.random() * 1000);
 
         // Préparer le message WhatsApp
         const whatsappMessage = `Bonjour Alfred ! Je souhaite commander le ${productName}.
@@ -249,30 +250,45 @@ Merci de confirmer ma commande pour la livraison !`;
             console.error("Erreur lors de la sauvegarde locale :", err);
         }
 
-        // 1b. Déclencher le tracking Facebook Pixel si configuré
-        if (typeof fbq === 'function') {
-            let numericPrice = 15000; // Valeur par défaut
-            if (quantityVal === "2") numericPrice = 27000;
-            if (quantityVal === "3") numericPrice = 38000;
-            
-            // Si des prix personnalisés sont définis dans le dataset du formulaire (ex: tondeuse)
-            if (orderForm.dataset.price1) {
-                const prices = {
-                    "1": Number(orderForm.dataset.price1),
-                    "2": Number(orderForm.dataset.price2),
-                    "3": Number(orderForm.dataset.price3)
-                };
-                numericPrice = prices[quantityVal] || numericPrice;
-            }
+        // 1b. Déclencher le tracking Facebook Pixel si configuré (avec Dédoublonnement)
+        let numericPrice = 15000; // Valeur par défaut
+        if (quantityVal === "2") numericPrice = 27000;
+        if (quantityVal === "3") numericPrice = 38000;
+        if (orderForm.dataset.price1) {
+            const prices = {
+                "1": Number(orderForm.dataset.price1),
+                "2": Number(orderForm.dataset.price2),
+                "3": Number(orderForm.dataset.price3)
+            };
+            numericPrice = prices[quantityVal] || numericPrice;
+        }
 
+        if (typeof fbq === 'function') {
             fbq('track', 'Purchase', {
                 value: numericPrice,
                 currency: 'XOF',
                 content_name: productName,
                 content_type: 'product'
-            });
-            console.log("Événement Purchase envoyé au Pixel Facebook ! Valeur : " + numericPrice + " XOF");
+            }, { eventID: orderId });
+            console.log("Événement Purchase envoyé au Pixel Facebook ! Valeur : " + numericPrice + " XOF (EventID: " + orderId + ")");
         }
+
+        // 1c. Déclencher le tracking Facebook Conversions API (Server-side via Netlify Functions)
+        fetch("/.netlify/functions/track-purchase", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                fullName: fullName,
+                phoneNumber: phoneNumber,
+                productName: productName,
+                value: numericPrice,
+                currency: 'XOF',
+                orderId: orderId
+            })
+        })
+        .then(response => response.json())
+        .then(data => console.log("CAPI Meta Success :", data))
+        .catch(error => console.error("CAPI Meta Error :", error));
 
         // 2. Envoi silencieux à Netlify Forms en arrière-plan (déclenchera l'email)
         const formData = new FormData(orderForm);
