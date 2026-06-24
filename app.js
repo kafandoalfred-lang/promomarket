@@ -75,22 +75,48 @@ if (stickyBar && heroSection) {
 // -------------------------------------------------------------
 // 4. CALCULATEUR DYNAMIQUE DE PRIX
 // -------------------------------------------------------------
+const orderForm = document.getElementById('orderForm');
 const quantitySelect = document.getElementById('quantity');
 const totalPriceDisplay = document.getElementById('totalPrice');
 
-const pricing = {
+let pricing = {
     "1": "15 000 FCFA",
     "2": "27 000 FCFA",
     "3": "38 000 FCFA"
 };
 
-const pricingText = {
+let pricingText = {
     "1": "1 Trépied (15 000 FCFA)",
     "2": "2 Trépieds (27 000 FCFA)",
     "3": "3 Trépieds (38 000 FCFA)"
 };
 
+let productName = "Trépied Intelligent 360° (+ Trépied 1m70)";
+
+// Charger dynamiquement les configurations du produit depuis les attributs data du formulaire
+if (orderForm) {
+    if (orderForm.dataset.price1) {
+        pricing["1"] = `${Number(orderForm.dataset.price1).toLocaleString('fr-FR')} FCFA`;
+        pricing["2"] = `${Number(orderForm.dataset.price2).toLocaleString('fr-FR')} FCFA`;
+        pricing["3"] = `${Number(orderForm.dataset.price3).toLocaleString('fr-FR')} FCFA`;
+    }
+    if (orderForm.dataset.priceText1) {
+        pricingText["1"] = orderForm.dataset.priceText1;
+        pricingText["2"] = orderForm.dataset.priceText2;
+        pricingText["3"] = orderForm.dataset.priceText3;
+    }
+    if (orderForm.dataset.productName) {
+        productName = orderForm.dataset.productName;
+    }
+}
+
 if (quantitySelect && totalPriceDisplay) {
+    // Mettre à jour le prix affiché initialement
+    const initialQty = quantitySelect.value;
+    if (pricing[initialQty]) {
+        totalPriceDisplay.textContent = pricing[initialQty];
+    }
+
     quantitySelect.addEventListener('change', (e) => {
         const qty = e.target.value;
         if (pricing[qty]) {
@@ -162,7 +188,6 @@ startCountdown(8045);
 // -------------------------------------------------------------
 // 7. FORMULAIRE : DOUBLE ENREGISTREMENT (EMAIL VIA NETLIFY + LOCAL)
 // -------------------------------------------------------------
-const orderForm = document.getElementById('orderForm');
 const submitButton = document.getElementById('btnSubmitOrder');
 
 if (orderForm) {
@@ -185,7 +210,7 @@ if (orderForm) {
         const finalPrice = pricing[quantityVal];
 
         // Préparer le message WhatsApp
-        const whatsappMessage = `Bonjour Alfred ! Je souhaite commander le Trépied Intelligent 360° (+ Trépied 1m70).
+        const whatsappMessage = `Bonjour Alfred ! Je souhaite commander le ${productName}.
 
 Voici mes coordonnées de livraison :
 👤 Nom Complet : ${fullName}
