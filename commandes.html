@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PromoMarket | Gestion Locale des Commandes</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Inline styles for standalone admin look -->
+    <style>
+        :root {
+            --bg-main: #f8fafc;
+            --bg-card: #ffffff;
+            --border-color: #e2e8f0;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --accent-purple: #6d28d9;
+            --accent-purple-glow: rgba(109, 40, 217, 0.08);
+            --accent-emerald: #059669;
+            --font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            padding: 2rem;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin: 0;
+        }
+
+        .btn {
+            background-color: var(--accent-purple);
+            color: #fff;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            font-family: var(--font-family);
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .btn:hover {
+            background-color: #5b21b6;
+        }
+
+        .btn-secondary {
+            background-color: #cbd5e1;
+            color: var(--text-primary);
+        }
+
+        .btn-secondary:hover {
+            background-color: #94a3b8;
+        }
+
+        .btn-danger {
+            background-color: #ef4444;
+        }
+
+        .btn-danger:hover {
+            background-color: #dc2626;
+        }
+
+        .btn-success {
+            background-color: var(--accent-emerald);
+        }
+
+        .btn-success:hover {
+            background-color: #047857;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .search-wrapper {
+            position: relative;
+            flex-grow: 1;
+            max-width: 400px;
+        }
+
+        .search-wrapper i {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.6rem 0.6rem 0.6rem 2.2rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-family: var(--font-family);
+            font-size: 0.95rem;
+        }
+
+        .actions-right {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .orders-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th, td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: #f8fafc;
+            font-weight: 700;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+
+        tr:hover {
+            background-color: #f8fafc;
+        }
+
+        .empty-state {
+            padding: 4rem;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #cbd5e1;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <div>
+                <h1><i class="fa-solid fa-folder-open" style="color: var(--accent-purple);"></i> Commandes PromoMarket</h1>
+                <p style="color: var(--text-secondary); margin: 0.25rem 0 0 0; font-size: 0.9rem;">
+                    Historique des commandes enregistré localement sur ce navigateur.
+                </p>
+            </div>
+            <a href="index.html" class="btn btn-secondary"><i class="fa-solid fa-house"></i> Voir le site</a>
+        </header>
+
+        <div class="controls">
+            <div class="search-wrapper">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="searchInput" class="search-input" placeholder="Rechercher par nom, téléphone ou ville..." oninput="filterOrders()">
+            </div>
+            <div class="actions-right">
+                <button onclick="exportToCSV()" class="btn btn-success"><i class="fa-solid fa-file-excel"></i> Exporter pour Excel (CSV)</button>
+                <button onclick="clearOrders()" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i> Tout Effacer</button>
+            </div>
+        </div>
+
+        <div class="orders-card">
+            <table id="ordersTable">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Nom & Prénom</th>
+                        <th>Téléphone (WhatsApp)</th>
+                        <th>Ville & Quartier</th>
+                        <th>Point de repère</th>
+                        <th>Commande</th>
+                        <th>Montant</th>
+                    </tr>
+                </thead>
+                <tbody id="ordersBody">
+                    <!-- Les commandes s'afficheront ici -->
+                </tbody>
+            </table>
+            <div id="emptyState" class="empty-state" style="display: none;">
+                <i class="fa-solid fa-box-open"></i>
+                <p>Aucune commande enregistrée pour le moment.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Charger les commandes depuis le LocalStorage
+        let orders = [];
+        
+        function loadOrders() {
+            try {
+                orders = JSON.parse(localStorage.getItem('promomarket_orders') || '[]');
+            } catch (err) {
+                console.error("Erreur de chargement des commandes:", err);
+                orders = [];
+            }
+            renderOrders(orders);
+        }
+
+        // Afficher les commandes dans le tableau
+        function renderOrders(ordersList) {
+            const tbody = document.getElementById('ordersBody');
+            const emptyState = document.getElementById('emptyState');
+            
+            tbody.innerHTML = '';
+            
+            if (ordersList.length === 0) {
+                emptyState.style.display = 'block';
+                document.getElementById('ordersTable').style.display = 'none';
+                return;
+            }
+            
+            emptyState.style.display = 'none';
+            document.getElementById('ordersTable').style.display = 'table';
+            
+            // Afficher du plus récent au plus ancien
+            ordersList.slice().reverse().forEach(order => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td style="font-weight: 600; font-size: 0.9rem;">${order.date || 'Non daté'}</td>
+                    <td style="font-weight: 700;">${order.fullName}</td>
+                    <td>
+                        <a href="https://wa.me/${order.phoneNumber.replace(/[\s\+]/g, '')}" target="_blank" style="color: var(--accent-purple); text-decoration: none; font-weight: 600;">
+                            <i class="fa-brands fa-whatsapp" style="color: #25d366;"></i> ${order.phoneNumber}
+                        </a>
+                    </td>
+                    <td>${order.city}</td>
+                    <td style="color: var(--text-secondary); font-style: italic; font-size: 0.9rem;">${order.landmark || '-'}</td>
+                    <td><span style="background-color: var(--accent-purple-glow); color: var(--accent-purple); padding: 0.25rem 0.5rem; border-radius: 4px; font-weight: 600; font-size: 0.85rem;">${order.quantity}</span></td>
+                    <td style="font-weight: 800; color: var(--accent-emerald);">${order.price}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Filtrer les commandes avec la barre de recherche
+        function filterOrders() {
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            const filtered = orders.filter(order => {
+                return (
+                    order.fullName.toLowerCase().includes(query) ||
+                    order.phoneNumber.toLowerCase().includes(query) ||
+                    order.city.toLowerCase().includes(query) ||
+                    (order.landmark && order.landmark.toLowerCase().includes(query))
+                );
+            });
+            renderOrders(filtered);
+        }
+
+        // Exporter en CSV pour Excel
+        function exportToCSV() {
+            if (orders.length === 0) {
+                alert("Aucune commande à exporter.");
+                return;
+            }
+            
+            let csvContent = "data:text/csv;charset=utf-8,\uFEFF"; // BOM pour Excel accents
+            csvContent += "Date;Nom complet;Telephone;Ville et Quartier;Point de repere;Commande;Montant\r\n";
+            
+            orders.forEach(order => {
+                const row = [
+                    order.date || '',
+                    order.fullName,
+                    order.phoneNumber,
+                    order.city,
+                    order.landmark || '',
+                    order.quantity,
+                    order.price
+                ].map(text => `"${text.replace(/"/g, '""')}"`).join(";");
+                csvContent += row + "\r\n";
+            });
+            
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "commandes_promomarket.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Tout effacer
+        function clearOrders() {
+            if (confirm("Voulez-vous vraiment effacer TOUTES les commandes enregistrées sur ce navigateur ? Cette action est irréversible.")) {
+                localStorage.removeItem('promomarket_orders');
+                loadOrders();
+            }
+        }
+
+        // Charger au démarrage
+        window.onload = loadOrders;
+    </script>
+</body>
+</html>

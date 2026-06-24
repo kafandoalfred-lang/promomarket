@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PromoMarket | Votre Boutique E-commerce en Afrique de l'Ouest</title>
+    <meta name="description" content="Découvrez notre sélection de produits innovants de qualité professionnelle sur PromoMarket. Paiement à la livraison et livraison rapide.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- CSS Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Bandeau d'Urgence / Info -->
+    <div class="promo-bar" id="promoBar">
+        <span>🔥 LIVRAISON RAPIDE EN 24H/48H + PAIEMENT À LA LIVRAISON !</span>
+    </div>
+
+    <!-- En-tête / Header -->
+    <header class="main-header" id="mainHeader">
+        <div class="header-container">
+            <div class="logo">
+                <span class="logo-accent">Promo</span>Market
+            </div>
+            <div class="header-right">
+                <a href="#catalog-section" class="btn-header" id="btnHeaderCatalog">Parcourir la boutique</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Section Héro Boutique (Accueil) -->
+        <section class="home-hero-section" id="homeHeroSection">
+            <div class="home-hero-container">
+                <span class="badge">🚀 Boutique Officielle 2026</span>
+                <h1>Matériel Innovant pour Créateurs de Contenu & Mode de Vie</h1>
+                <p class="home-hero-subtitle">PromoMarket vous propose des produits de qualité professionnelle, importés en exclusivité, livrés directement chez vous avec paiement sécurisé à la livraison.</p>
+                <a href="#catalog-section" class="btn-primary pulse" id="btnHomeCTA">
+                    <i class="fa-solid fa-bag-shopping"></i> DÉCOUVRIR NOS PRODUITS
+                </a>
+            </div>
+        </section>
+
+        <!-- Section Avantages Client -->
+        <section class="guarantee-bar" id="guaranteeBar">
+            <div class="guarantee-item">
+                <i class="fa-solid fa-hand-holding-dollar"></i>
+                <div>
+                    <h4>Paiement à la livraison</h4>
+                    <p>Zéro risque, payez après vérification</p>
+                </div>
+            </div>
+            <div class="guarantee-item">
+                <i class="fa-solid fa-truck-fast"></i>
+                <div>
+                    <h4>Livraison Express</h4>
+                    <p>Chez vous sous 24h à 48h</p>
+                </div>
+            </div>
+            <div class="guarantee-item">
+                <i class="fa-solid fa-shield-check"></i>
+                <div>
+                    <h4>Garantie Qualité</h4>
+                    <p>Service client WhatsApp réactif</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Catalogue (Grille de Produits) -->
+        <section class="catalog-section" id="catalog-section">
+            <div class="section-title">
+                <h2>Notre Catalogue de Produits</h2>
+                <p>Découvrez nos produits sélectionnés pour vous. Cliquez sur un produit pour voir ses détails et commander.</p>
+            </div>
+            
+            <div class="product-grid">
+                <!-- Produit 1 : Trépied 360 -->
+                <div class="product-card">
+                    <div class="product-card-badge">Disponible</div>
+                    <div class="product-card-image">
+                        <img src="tripod-front.jpg" alt="Trépied intelligent 360 degrés">
+                    </div>
+                    <div class="product-card-content">
+                        <h3>Trépied Intelligent 360° (SmartStand T10)</h3>
+                        <p class="product-card-desc">Suivi de mouvement automatique par IA, poignée cuir premium, Bluetooth et grand trépied télescopique de 1m70 inclus.</p>
+                        <div class="product-card-pricing">
+                            <span class="card-price-new">15 000 FCFA</span>
+                            <span class="card-price-old">25 000 FCFA</span>
+                        </div>
+                        <a href="produit-trepied.html" class="btn-product-view">Voir le produit & Commander</a>
+                    </div>
+                </div>
+
+                <!-- Produit 2 : Tondeuse Rechargeable (Bientôt disponible) -->
+                <div class="product-card product-disabled">
+                    <div class="product-card-badge badge-soon">Bientôt disponible</div>
+                    <div class="product-card-image">
+                        <img src="smart_tripod_360.png" alt="Tondeuse rechargeable pro" style="filter: grayscale(1) opacity(0.5);">
+                    </div>
+                    <div class="product-card-content">
+                        <h3>Tondeuse Rechargeable Professionnelle</h3>
+                        <p class="product-card-desc">Tondeuse à haute précision, idéale pour vos rasages et coiffures autonomes à domicile. Économique et robuste.</p>
+                        <div class="product-card-pricing">
+                            <span class="card-price-new">Prix estimé : 10 000 FCFA</span>
+                        </div>
+                        <a href="#" class="btn-product-view btn-disabled" onclick="return false;">Prochainement</a>
+                    </div>
+                </div>
+
+                <!-- Produit 3 : Sérum Visage (Bientôt disponible) -->
+                <div class="product-card product-disabled">
+                    <div class="product-card-badge badge-soon">Bientôt disponible</div>
+                    <div class="product-card-image">
+                        <img src="smart_tripod_360.png" alt="Sérum visage Vitamine C" style="filter: grayscale(1) opacity(0.5);">
+                    </div>
+                    <div class="product-card-content">
+                        <h3>Sérums Visage Anti-Acné & Vitamine C</h3>
+                        <p class="product-card-desc">Formule naturelle pour un visage éclatant, sans boutons ni acné. Soin quotidien protecteur.</p>
+                        <div class="product-card-pricing">
+                            <span class="card-price-new">Prix estimé : 5 000 FCFA</span>
+                        </div>
+                        <a href="#" class="btn-product-view btn-disabled" onclick="return false;">Prochainement</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Témoignages Rapides -->
+        <section class="testimonials-section">
+            <div class="section-title">
+                <h2>Ils font confiance à PromoMarket</h2>
+                <p>Découvrez les retours de nos clients livrés dans toute la sous-région.</p>
+            </div>
+            <div class="testimonials-container">
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"J'ai reçu mon trépied 360° en 24h à Ouagadougou. Le produit est conforme à la description et le livreur était très sympa, il m'a aidé à tester l'appareil avant que je paye."</p>
+                    <div class="testimonial-user">
+                        <div class="avatar"><i class="fa-solid fa-circle-user"></i></div>
+                        <div>
+                            <h4>Kader Z.</h4>
+                            <span>Acheteur vérifié - Ouaga</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"Très professionnel. Commande passée sur le site, contacté 10 minutes après sur WhatsApp pour confirmation. Reçu le lendemain à Conakry. Je recommande !"</p>
+                    <div class="testimonial-user">
+                        <div class="avatar"><i class="fa-solid fa-circle-user"></i></div>
+                        <div>
+                            <h4>Fanta D.</h4>
+                            <span>Commerçante - Conakry</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Pied de page / Footer -->
+    <footer class="main-footer" id="mainFooter">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <span class="logo-accent">Promo</span>Market
+            </div>
+            <p>Votre boutique en ligne de référence pour des produits innovants de qualité en Afrique de l'Ouest.</p>
+            <div class="footer-contact">
+                <p><i class="fa-solid fa-envelope"></i> contact@promomarket.com</p>
+                <p><i class="fa-brands fa-whatsapp"></i> Service Client WhatsApp : +226 58 90 98 06</p>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 PromoMarket. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Widget WhatsApp Flottant -->
+    <a href="https://wa.me/22658909806" class="whatsapp-float-widget" id="whatsappWidget" target="_blank">
+        <div class="widget-avatar-container">
+            <img src="tripod-front.jpg" alt="Alfred PromoMarket">
+            <span class="online-indicator"></span>
+        </div>
+        <div class="widget-text-container">
+            <strong>Alfred</strong>
+            <span>En ligne (Répond en 2min)</span>
+        </div>
+        <div class="whatsapp-widget-icon">
+            <i class="fa-brands fa-whatsapp"></i>
+        </div>
+    </a>
+
+</body>
+</html>

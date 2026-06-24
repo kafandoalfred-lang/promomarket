@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartStand 360° | Trépied Intelligent avec Suivi de Mouvement 1m70</title>
+    <meta name="description" content="Filmez vos vidéos TikTok et Facebook comme un professionnel sans aide. Trépied intelligent 360° avec suivi automatique et grand support de 1m70 réglable.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- CSS Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Bandeau d'Urgence / Info -->
+    <div class="promo-bar" id="promoBar">
+        <span>🔥 OFFRE EXCLUSIVE : -40% DE RÉDUCTION + PAIEMENT À LA LIVRAISON (15 000 FCFA) !</span>
+    </div>
+
+    <!-- En-tête / Header -->
+    <header class="main-header" id="mainHeader">
+        <div class="header-container">
+            <div class="logo">
+                <span class="logo-accent">Promo</span>Market
+            </div>
+            <div class="header-right">
+                <span class="stock-status"><i class="fa-solid fa-circle"></i> En Stock (12 restants)</span>
+                <a href="#order-section" class="btn-header" id="btnHeaderCTA">Commander</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Section Produit & Commande (Hero Shopify Style) -->
+        <section class="hero-section" id="heroSection">
+            <div class="hero-container">
+                
+                <!-- Colonne Gauche : Galerie Photos -->
+                <div class="hero-gallery">
+                    <div class="badge">🔥 Produit Vedette 2026</div>
+                    <div class="main-image-container">
+                        <img src="tripod-front.jpg" alt="Trépied intelligent 360 degrés design premium" id="mainProductImage">
+                    </div>
+                    <div class="gallery-thumbnails">
+                        <img src="tripod-front.jpg" alt="Trépied intelligent vue face" class="thumbnail active" onclick="changeImage('tripod-front.jpg', this)">
+                        <img src="tripod-sensor.jpg" alt="Trépied intelligent avec suivi capteur" class="thumbnail" onclick="changeImage('tripod-sensor.jpg', this)">
+                        <img src="smart_tripod_360.png" alt="Trépied intelligent complet sur stand" class="thumbnail" onclick="changeImage('smart_tripod_360.png', this)">
+                    </div>
+                </div>
+
+                <!-- Colonne Droite : Achat Rapide -->
+                <div class="hero-buy-box">
+                    <h1>Trépied Intelligent 360° (SmartStand T10)</h1>
+                    <p class="tagline">Le support photo/vidéo ultime avec suivi de mouvement IA automatique, poignée cuir et grand trépied de 1m70 inclus.</p>
+                    
+                    <div class="reviews-short">
+                        <div class="stars">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <span>(47 avis clients vérifiés)</span>
+                    </div>
+
+                    <div class="price-container">
+                        <span class="price-new">15 000 FCFA</span>
+                        <span class="price-old">25 000 FCFA</span>
+                        <span class="price-discount">-40% DE RÉDUCTION</span>
+                    </div>
+
+                    <!-- Mini Formulaire d'Achat Direct -->
+                    <div class="mini-checkout-wrapper" id="order-section">
+                        <h3>⚡ Formulaire de Commande Express</h3>
+                        <p class="form-sub">Remplissez vos coordonnées pour être livré à domicile ou au bureau.</p>
+                        
+                        <form name="commande-express" method="POST" data-netlify="true" id="orderForm" class="order-form">
+                            <input type="hidden" name="form-name" value="commande-express">
+                            
+                            <div class="form-group">
+                                <label for="fullName">Nom & Prénom <span class="required">*</span></label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-user"></i>
+                                    <input type="text" id="fullName" name="fullName" placeholder="Ex: Alfred Kafando" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phoneNumber">Numéro de Téléphone (WhatsApp) <span class="required">*</span></label>
+                                <div class="input-wrapper">
+                                    <i class="fa-brands fa-whatsapp"></i>
+                                    <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="Ex: +226 58 90 98 06" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="city">Ville & Quartier <span class="required">*</span></label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                    <input type="text" id="city" name="city" placeholder="Ex: Ouagadougou, Pissy" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="landmark">Point de repère pour le livreur (Facultatif)</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-map-pin"></i>
+                                    <input type="text" id="landmark" name="landmark" placeholder="Ex: Près de la station Shell ou de la pharmacie">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="quantity">Quantité souhaitée <span class="required">*</span></label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-layer-group"></i>
+                                    <select id="quantity" name="quantity">
+                                        <option value="1" selected>1 Trépied Intelligent (15 000 FCFA)</option>
+                                        <option value="2">2 Trépieds (27 000 FCFA - Pack Duo 🔥)</option>
+                                        <option value="3">3 Trépieds (38 000 FCFA - Pack Trio 🔥)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="total-display">
+                                <span>Total à payer à la livraison :</span>
+                                <strong id="totalPrice">15 000 FCFA</strong>
+                            </div>
+
+                            <button type="submit" class="btn-submit pulse" id="btnSubmitOrder">
+                                <i class="fa-brands fa-whatsapp"></i> VALIDER MA COMMANDE
+                            </button>
+                            <p class="form-footer-note"><i class="fa-solid fa-shield-halved"></i> Aucun paiement en ligne requis. Vous payez à la livraison.</p>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Onglets Interactifs (Tabs Shopify Style) -->
+        <section class="tabs-section" id="tabsSection">
+            <div class="tabs-container">
+                <div class="tabs-header">
+                    <button class="tab-btn active" data-tab="description">📖 Description</button>
+                    <button class="tab-btn" data-tab="specs">⚙️ Fiche Technique</button>
+                    <button class="tab-btn" data-tab="shipping">🚚 Livraison & Garanties</button>
+                    <button class="tab-btn" data-tab="reviews">💬 Avis Clients (47)</button>
+                </div>
+                
+                <div class="tabs-content">
+                    <!-- Onglet 1: Description -->
+                    <div class="tab-pane active" id="tab-description">
+                        <div class="tab-desc-content">
+                            <h3>Filmez vos vidéos comme si vous aviez un caméraman professionnel !</h3>
+                            <p>Le SmartStand 360° est doté d'une caméra intelligente intégrée qui détecte automatiquement votre visage et votre corps. Que vous marchiez, dansiez ou fassiez une démonstration produit, le support pivote pour vous garder au centre.</p>
+                            
+                            <!-- Guide Interactif des Gestes IA -->
+                            <div class="gesture-guide">
+                                <h4>👌 Contrôlez-le à distance avec des gestes simples !</h4>
+                                <p class="gesture-sub">Plus besoin de courir vers l'appareil pour démarrer ou l'éteindre.</p>
+                                <div class="gesture-grid">
+                                    <div class="gesture-card">
+                                        <span class="gesture-icon">👌</span>
+                                        <h5>Geste "OK"</h5>
+                                        <p>Faites le signe OK avec votre main face à la caméra. Le voyant devient vert et le trépied commence à vous suivre automatiquement.</p>
+                                    </div>
+                                    <div class="gesture-card">
+                                        <span class="gesture-icon">✋</span>
+                                        <h5>Geste "PAUME"</h5>
+                                        <p>Présentez votre paume de main ouverte. Le suivi se met instantanément en pause, vous permettant de faire des pauses sans toucher le téléphone.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="desc-feature-highlight">
+                                <img src="tripod-sensor.jpg" alt="Démonstration du capteur IA bleu">
+                                <div>
+                                    <h4>Technologie IA Sans Application</h4>
+                                    <p>Contrairement aux autres trépieds qui demandent une application complexe, le SmartStand 360° est 100% autonome. Sa caméra IA analyse les mouvements en direct. Cela signifie que vous pouvez l'utiliser directement avec <strong>TikTok</strong>, <strong>Facebook Live</strong>, <strong>WhatsApp Vidéo</strong>, <strong>Instagram</strong> ou toute autre application de votre choix !</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Onglet 2: Fiche Technique -->
+                    <div class="tab-pane" id="tab-specs">
+                        <div class="specs-table-wrapper">
+                            <table class="specs-table">
+                                <thead>
+                                    <tr>
+                                        <th>Caractéristique</th>
+                                        <th>Spécification Réelle</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Autonomie</strong></td>
+                                        <td>Batterie rechargeable 1200 mAh (jusqu'à 5 heures de fonctionnement continu)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Chargement</strong></td>
+                                        <td>Port USB-C universel (Câble fourni dans la boîte)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Angle de rotation</strong></td>
+                                        <td>Rotation horizontale complète à 360° / Inclinaison manuelle à 180°</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Télécommande</strong></td>
+                                        <td>Télécommande Bluetooth détachable incluse pour déclencher les photos/vidéos à distance</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Trépied extensible</strong></td>
+                                        <td>Grand support en aluminium de 1m70 réglable inclus en plus du socle de table</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Matériaux</strong></td>
+                                        <td>Plastique ABS haute résistance, alliage d'aluminium et poignée de transport en cuir cousu</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Compatibilité</strong></td>
+                                        <td>Tous les smartphones (iPhone, Samsung, Infinix, Tecno, Xiaomi, etc.)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Onglet 3: Livraison & Garanties -->
+                    <div class="tab-pane" id="tab-shipping">
+                        <div class="shipping-info-grid">
+                            <div class="shipping-card">
+                                <i class="fa-solid fa-truck-fast"></i>
+                                <h4>Délais & Zones de Livraison</h4>
+                                <p><strong>Livraison Express sous 24h à 48h</strong>. Notre équipe vous appelle sur WhatsApp dès la validation pour planifier l'heure de livraison.</p>
+                                <ul>
+                                    <li>Conakry & Ouagadougou : Livraison directe par coursier.</li>
+                                    <li>Intérieur du pays : Livraison par bus partenaire ou point relais sécurisé.</li>
+                                </ul>
+                            </div>
+                            <div class="shipping-card">
+                                <i class="fa-solid fa-hand-holding-dollar"></i>
+                                <h4>Paiement à la livraison</h4>
+                                <p><strong>Aucun risque pour vous !</strong> Vous ne payez rien sur internet. Vous donnez l'argent en espèces au livreur uniquement après avoir déballé, allumé et testé le trépied devant lui.</p>
+                            </div>
+                            <div class="shipping-card">
+                                <i class="fa-solid fa-rotate-left"></i>
+                                <h4>Garantie Satisfait ou Remboursé</h4>
+                                <p>Nous offrons une <strong>garantie de 7 jours</strong> après l'achat. En cas de défaut de fabrication ou de problème technique, nous échangeons l'appareil gratuitement ou vous remboursons intégralement.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Onglet 4: Avis Clients -->
+                    <div class="tab-pane" id="tab-reviews">
+                        <div class="reviews-tab-content">
+                            <div class="reviews-summary-box">
+                                <div class="rating-number">4.9</div>
+                                <div>
+                                    <div class="stars">
+                                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                    </div>
+                                    <p>Moyenne basée sur 47 commandes livrées en Afrique de l'Ouest</p>
+                                </div>
+                            </div>
+                            
+                            <div class="reviews-list">
+                                <div class="review-item">
+                                    <div class="review-header">
+                                        <strong>Kadiatou O.</strong>
+                                        <span class="review-date">Conakry, Guinée</span>
+                                    </div>
+                                    <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                                    <p>"J'ai commandé hier et le livreur est venu me livrer ce matin dans mon magasin à Madina. J'ai testé le suivi du visage et c'est magique, il tourne tout seul. Le trépied de 1m70 est parfait pour filmer mes vêtements de profil."</p>
+                                </div>
+                                <div class="review-item">
+                                    <div class="review-header">
+                                        <strong>Mariam K.</strong>
+                                        <span class="review-date">Ouagadougou, Burkina Faso</span>
+                                    </div>
+                                    <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                                    <p>"Très bon produit. La télécommande Bluetooth fonctionne très bien avec mon Infinix pour lancer mes vidéos de coiffure à distance. La poignée en cuir lui donne une allure très chic."</p>
+                                </div>
+                                <div class="review-item">
+                                    <div class="review-header">
+                                        <strong>Adama S.</strong>
+                                        <span class="review-date">Bobo-Dioulasso, Burkina Faso</span>
+                                    </div>
+                                    <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i></div>
+                                    <p>"Service client au top. Ils m'ont appelé directement sur WhatsApp après ma commande pour m'expliquer la livraison. Le trépied est solide et le suivi par geste marche à tous les coups."</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section FAQ (Foire aux questions) -->
+        <section class="faq-section" id="faqSection">
+            <div class="section-title">
+                <h2>Questions Fréquentes</h2>
+                <p>Besoin de plus d'informations ? Voici nos réponses aux questions les plus posées.</p>
+            </div>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <button class="faq-question" id="faqBtn1">
+                        <span>Le trépied fonctionne-t-il sans connexion Bluetooth ?</span>
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Oui ! Le suivi de mouvement IA utilise la caméra intégrée de l'appareil et fonctionne de manière 100% autonome. Le Bluetooth n'est nécessaire que si vous souhaitez utiliser la télécommande pour prendre des photos ou lancer l'enregistrement à distance.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" id="faqBtn2">
+                        <span>Est-ce que je paye avant la livraison ?</span>
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Non, jamais ! Vous ne payez rien à l'avance. Le paiement se fait uniquement en espèces au livreur après que vous ayez reçu, ouvert et vérifié le bon fonctionnement du trépied.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" id="faqBtn3">
+                        <span>Quelle est la hauteur maximale du trépied fourni ?</span>
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Le grand trépied télescopique fourni dans le pack a une hauteur réglable de 40 cm à 1,70 mètre (170 cm), ce qui vous permet de filmer debout à hauteur des yeux.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Pied de page / Footer -->
+    <footer class="main-footer" id="mainFooter">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <span class="logo-accent">Promo</span>Market
+            </div>
+            <p>Votre boutique de confiance en Afrique de l'Ouest pour du matériel de création de contenu de qualité professionnelle.</p>
+            <div class="footer-contact">
+                <p><i class="fa-solid fa-envelope"></i> contact@promomarket.com</p>
+                <p><i class="fa-brands fa-whatsapp"></i> Service Client WhatsApp : +226 58 90 98 06</p>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 PromoMarket. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Barre d'achat collante mobile (Sticky Buy Bar) -->
+    <div class="sticky-buy-bar" id="stickyBuyBar">
+        <div class="sticky-bar-container">
+            <div class="sticky-bar-info">
+                <strong>SmartStand 360°</strong>
+                <span class="sticky-price">15 000 FCFA</span>
+            </div>
+            <a href="#order-section" class="sticky-bar-btn" id="stickyBuyBtn">Acheter Maintenant</a>
+        </div>
+    </div>
+
+    <!-- Widget WhatsApp Flottant -->
+    <a href="https://wa.me/22658909806" class="whatsapp-float-widget" id="whatsappWidget" target="_blank">
+        <div class="widget-avatar-container">
+            <img src="tripod-front.jpg" alt="Alfred PromoMarket">
+            <span class="online-indicator"></span>
+        </div>
+        <div class="widget-text-container">
+            <strong>Alfred</strong>
+            <span>En ligne (Répond en 2min)</span>
+        </div>
+        <div class="whatsapp-widget-icon">
+            <i class="fa-brands fa-whatsapp"></i>
+        </div>
+    </a>
+
+    <!-- Script JavaScript -->
+    <script src="app.js"></script>
+</body>
+</html>
