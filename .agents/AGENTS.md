@@ -46,3 +46,16 @@ Ce fichier sert de mémoire et de contexte pour l'assistant IA (Antigravity). To
 2. **Devise** : Toujours afficher les prix et calculs financiers en **FCFA** (ou Yuan CNY / Dollars USD avec conversion en FCFA).
 3. **Approche technique** : Proposer du code robuste, propre, et facilement hébergevole gratuitement (ex: GitHub Pages) ou gérable par un non-développeur.
 4. **Marketing** : Adapter tous les exemples de scripts publicitaires ou accroches au format de marketing direct et émotionnel qu'Alfred préfère.
+
+## 🧠 Mémoire Technique & Résolutions de Problèmes (Déploiement promomarket)
+
+### 1. Initialisation Git et Authentification
+- **Blocage d'authentification 127.0.0.1** : Si la popup de connexion GitHub bloque avec une erreur `ERR_CONNECTION_REFUSED` sur `127.0.0.1` (blocage réseau ou antivirus local), choisir l'option de secours **"Sign in with a code"**, copier le code à 8 caractères et le valider sur [github.com/login/device](https://github.com/login/device).
+- **Réinitialisation propre** : Si Git est corrompu ou dans un état instable, supprimer complètement le dossier masqué `.git` (`Remove-Item -Recurse -Force .git`), réinitialiser (`git init`), recréer les configurations utilisateur localement, recréer le commit initial, lier le dépôt distant (`git remote add origin ...`), et pousser (`git push -f -u origin main`).
+
+### 2. Détection de Formulaire Netlify (Netlify Forms)
+- **Attributs obligatoires** : La balise `<form>` doit obligatoirement inclure l'attribut `method="POST"` (ou `method="post"`) et l'attribut `netlify` (ou `data-netlify="true"`). Sinon, le robot de compilation Netlify l'ignora.
+- **Piège de l'attribut "hidden"** : Netlify Forms ignore parfois les balises `<form>` portant l'attribut natif HTML5 `hidden`. Pour masquer un formulaire de détection sans casser le parseur, utiliser du style CSS inline : `style="display: none;"`.
+- **Garantie de détection (Astuce de l'index)** : Placer une copie exacte mais masquée du formulaire (avec les mêmes noms d'inputs) dans la page principale `index.html` garantit que Netlify détectera le formulaire au premier scan.
+- **Bypass du cache Netlify** : Si un formulaire existant refuse d'être détecté après modification, renommer le formulaire (ex: de `commande-express` à `commande-rapide`) force Netlify à rafraîchir son cache et à le détecter immédiatement.
+- **Activation UI & Déploiement** : Vérifier que l'option **"Form detection"** est bien active sur le tableau de bord Netlify (*Site configuration > Forms*). L'activation de cette option nécessite un nouveau déploiement manuel (**"Trigger deploy" -> "Deploy site"**) pour scanner le site.
