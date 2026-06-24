@@ -273,8 +273,23 @@ Merci de confirmer ma commande pour la livraison !`;
             console.log("Événement Purchase envoyé au Pixel Facebook ! Valeur : " + numericPrice + " XOF (EventID: " + orderId + ")");
         }
 
-        // 1c. Déclencher le tracking Facebook Conversions API (Server-side via Netlify Functions)
-        fetch("/.netlify/functions/track-purchase", {
+        // Fonction sécurisée pour rediriger vers WhatsApp sans doublons
+        let redirected = false;
+        function redirectUser() {
+            if (!redirected) {
+                redirected = true;
+                window.location.href = whatsappUrl;
+            }
+        }
+
+        // Sécurité : Forcer la redirection après 1.5 seconde au cas où le réseau est très lent
+        const fallbackTimeout = setTimeout(() => {
+            console.log("Timeout de sécurité déclenché, redirection forcée.");
+            redirectUser();
+        }, 1500);
+
+        // 1c. Préparer le tracking Facebook Conversions API (Server-side via Netlify Functions)
+        const capiPromise = fetch("/.netlify/functions/track-purchase", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -287,26 +302,34 @@ Merci de confirmer ma commande pour la livraison !`;
             })
         })
         .then(response => response.json())
-        .then(data => console.log("CAPI Meta Success :", data))
-        .catch(error => console.error("CAPI Meta Error :", error));
+        .then(data => {
+            console.log("CAPI Meta Success :", data);
+            return data;
+        })
+        .catch(error => {
+            console.error("CAPI Meta Error :", error);
+            return null;
+        });
 
-        // 2. Envoi silencieux à Netlify Forms en arrière-plan (déclenchera l'email)
+        // 2. Préparer l'envoi silencieux à Netlify Forms en arrière-plan
         const formData = new FormData(orderForm);
-        
-        fetch("/", {
+        const netlifyPromise = fetch("/", {
             method: "POST",
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
             body: new URLSearchParams(formData).toString()
         })
         .then(() => {
             console.log("Commande envoyée avec succès à Netlify !");
-            // Rediriger le client vers son WhatsApp pour finaliser la commande
-            window.location.href = whatsappUrl;
         })
         .catch(error => {
-            console.error("Erreur lors de l'envoi Netlify, redirection forcée :", error);
-            // Redirection forcée vers WhatsApp même en cas d'échec réseau
-            window.location.href = whatsappUrl;
+            console.error("Erreur lors de l'envoi Netlify :", error);
+        });
+
+        // Attendre que les deux requêtes soient complétées avant de rediriger
+        Promise.all([netlifyPromise, capiPromise]).then(() => {
+            clearTimeout(fallbackTimeout); // Annuler le timeout de sécurité
+            console.log("Toutes les requêtes de tracking et formulaire terminées, redirection...");
+            redirectUser();
         });
     });
 }
