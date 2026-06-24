@@ -6,6 +6,26 @@
 // CONFIGURATION : Configurez votre numéro WhatsApp ici (sans le signe + ni les espaces)
 const WHATSAPP_PHONE = "22658909806"; // Modifiez avec votre vrai numéro WhatsApp burkinabè ou guinéen
 
+// CONFIGURATION DU PIXEL FACEBOOK (Optionnel - Mettez votre ID à 15 chiffres, ex: "123456789012345")
+const FACEBOOK_PIXEL_ID = "1580750226796883"; 
+
+// -------------------------------------------------------------
+// INITIALISATION DYNAMIQUE DU PIXEL FACEBOOK
+// -------------------------------------------------------------
+if (FACEBOOK_PIXEL_ID && FACEBOOK_PIXEL_ID !== "VOTRE_PIXEL_ID_ICI") {
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', FACEBOOK_PIXEL_ID);
+    fbq('track', 'PageView');
+    console.log("Pixel Facebook initialisé avec succès ! ID : " + FACEBOOK_PIXEL_ID);
+}
+
 // -------------------------------------------------------------
 // 1. GALERIE PHOTO INTERACTIVE
 // -------------------------------------------------------------
@@ -247,6 +267,31 @@ Merci de confirmer ma commande pour la livraison !`;
             console.log("Commande sauvegardée localement dans commandes.html !");
         } catch (err) {
             console.error("Erreur lors de la sauvegarde locale :", err);
+        }
+
+        // 1b. Déclencher le tracking Facebook Pixel si configuré
+        if (typeof fbq === 'function') {
+            let numericPrice = 15000; // Valeur par défaut
+            if (quantityVal === "2") numericPrice = 27000;
+            if (quantityVal === "3") numericPrice = 38000;
+            
+            // Si des prix personnalisés sont définis dans le dataset du formulaire (ex: tondeuse)
+            if (orderForm.dataset.price1) {
+                const prices = {
+                    "1": Number(orderForm.dataset.price1),
+                    "2": Number(orderForm.dataset.price2),
+                    "3": Number(orderForm.dataset.price3)
+                };
+                numericPrice = prices[quantityVal] || numericPrice;
+            }
+
+            fbq('track', 'Purchase', {
+                value: numericPrice,
+                currency: 'XOF',
+                content_name: productName,
+                content_type: 'product'
+            });
+            console.log("Événement Purchase envoyé au Pixel Facebook ! Valeur : " + numericPrice + " XOF");
         }
 
         // 2. Envoi silencieux à Netlify Forms en arrière-plan (déclenchera l'email)
