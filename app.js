@@ -6,26 +6,6 @@
 // CONFIGURATION : Configurez votre numéro WhatsApp ici (sans le signe + ni les espaces)
 const WHATSAPP_PHONE = "22658909806"; // Modifiez avec votre vrai numéro WhatsApp burkinabè ou guinéen
 
-// CONFIGURATION DU PIXEL FACEBOOK (Optionnel - Mettez votre ID à 15 chiffres, ex: "123456789012345")
-const FACEBOOK_PIXEL_ID = "1580750226796883"; 
-
-// -------------------------------------------------------------
-// INITIALISATION DYNAMIQUE DU PIXEL FACEBOOK
-// -------------------------------------------------------------
-if (FACEBOOK_PIXEL_ID && FACEBOOK_PIXEL_ID !== "VOTRE_PIXEL_ID_ICI") {
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', FACEBOOK_PIXEL_ID);
-    fbq('track', 'PageView');
-    console.log("Pixel Facebook initialisé avec succès ! ID : " + FACEBOOK_PIXEL_ID);
-}
-
 // -------------------------------------------------------------
 // 1. GALERIE PHOTO INTERACTIVE
 // -------------------------------------------------------------
