@@ -8,7 +8,7 @@ const WHATSAPP_PHONE = "22658909806"; // Modifiez avec votre vrai numéro WhatsA
 
 // CONFIGURATION DU CODE DE TEST META (Optionnel - Pour voir vos tests CAPI en direct, ex: "TEST12345")
 // Mettez le code fourni dans l'onglet "Événements de test" de Meta Business Suite. Laissez vide "" en production.
-const META_TEST_EVENT_CODE = "TEST53908"; 
+const META_TEST_EVENT_CODE = ""; 
 
 // -------------------------------------------------------------
 // 1. GALERIE PHOTO INTERACTIVE
