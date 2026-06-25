@@ -34,7 +34,7 @@ exports.handler = async (event, context) => {
 
     try {
         const body = JSON.parse(event.body);
-        const { fullName, phoneNumber, productName, value, currency, orderId } = body;
+        const { fullName, phoneNumber, productName, value, currency, orderId, testEventCode } = body;
 
         // Récupérer le token d'accès depuis les variables d'environnement de Netlify
         const accessToken = process.env.META_ACCESS_TOKEN;
@@ -87,6 +87,12 @@ exports.handler = async (event, context) => {
                 }
             ]
         };
+
+        // Si un code de test d'événement est fourni pour les tests en direct
+        if (testEventCode) {
+            metaEventPayload.test_event_code = testEventCode;
+            console.log("Mode Test activé avec le code : " + testEventCode);
+        }
 
         const postData = JSON.stringify(metaEventPayload);
         

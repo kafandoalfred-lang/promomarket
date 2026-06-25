@@ -6,6 +6,10 @@
 // CONFIGURATION : Configurez votre numéro WhatsApp ici (sans le signe + ni les espaces)
 const WHATSAPP_PHONE = "22658909806"; // Modifiez avec votre vrai numéro WhatsApp burkinabè ou guinéen
 
+// CONFIGURATION DU CODE DE TEST META (Optionnel - Pour voir vos tests CAPI en direct, ex: "TEST12345")
+// Mettez le code fourni dans l'onglet "Événements de test" de Meta Business Suite. Laissez vide "" en production.
+const META_TEST_EVENT_CODE = "TEST53908"; 
+
 // -------------------------------------------------------------
 // 1. GALERIE PHOTO INTERACTIVE
 // -------------------------------------------------------------
@@ -298,7 +302,8 @@ Merci de confirmer ma commande pour la livraison !`;
                 productName: productName,
                 value: numericPrice,
                 currency: 'XOF',
-                orderId: orderId
+                orderId: orderId,
+                testEventCode: META_TEST_EVENT_CODE
             })
         })
         .then(response => response.json())
