@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tondeuse Professionnelle WAIKIL KM-809A | PromoMarket</title>
+    <meta name="description" content="Découvrez la puissance de la tondeuse WAIKIL KM-809A avec écran LCD intelligent. Moteur 12W, autonomie de 120-240 min, 4 sabots, livraison gratuite et paiement à la livraison !">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- CSS Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Bandeau d'Urgence / Info -->
+    <div class="promo-bar" id="promoBar">
+        <span>🔥 LIVRAISON GRATUITE + PAIEMENT À LA LIVRAISON (11 000 FCFA) !</span>
+    </div>
+
+    <!-- En-tête / Header -->
+    <header class="main-header" id="mainHeader">
+        <div class="header-container">
+            <a href="index.html" class="logo" style="text-decoration: none; color: inherit;">
+                <span class="logo-accent">Promo</span>Market
+            </a>
+            <div class="header-right">
+                <span class="stock-status"><i class="fa-solid fa-circle" style="color: #2ec4b6;"></i> En Stock (12 restants)</span>
+                <a href="#order-section" class="btn-header" id="btnHeaderCTA">Commander</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Section Produit & Commande (Hero Shopify Style) -->
+        <section class="hero-section" id="heroSection">
+            <div class="hero-container">
+                
+                <!-- Colonne Gauche : Galerie Photos -->
+                <div class="hero-gallery">
+                    <div class="badge">🔋 Écran LCD & Puissance 12W</div>
+                    <div class="main-image-container">
+                        <img src="waikil-trimmer.jpg" alt="Tondeuse professionnelle WAIKIL KM-809A" id="mainProductImage">
+                    </div>
+                    <div class="gallery-thumbnails">
+                        <img src="waikil-trimmer.jpg" alt="Tondeuse WAIKIL debout" class="thumbnail active" onclick="changeImage('waikil-trimmer.jpg', this)">
+                        <img src="waikil-details.jpg" alt="Caractéristiques techniques WAIKIL" class="thumbnail" onclick="changeImage('waikil-details.jpg', this)">
+                        <img src="waikil-kit.jpg" alt="Coffret complet WAIKIL" class="thumbnail" onclick="changeImage('waikil-kit.jpg', this)">
+                    </div>
+                </div>
+
+                <!-- Colonne Droite : Achat Rapide -->
+                <div class="hero-buy-box">
+                    <h1>Tondeuse Professionnelle Ajustable (WAIKIL KM-809A)</h1>
+                    <p class="tagline">La tondeuse de référence pour une tonte ultra-précise et puissante. Équipée d'un moteur de 12W, d'un écran LCD affichant le pourcentage de batterie restant, d'un levier de réglage latéral et livrée avec son kit de coiffure complet de 4 sabots.</p>
+                    
+                    <div class="reviews-short">
+                        <div class="stars">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <span>(28 avis clients vérifiés)</span>
+                    </div>
+
+                    <div class="price-container">
+                        <span class="price-new">11 000 FCFA</span>
+                        <span class="price-old">18 000 FCFA</span>
+                        <span class="price-discount">LIVRAISON GRATUITE</span>
+                    </div>
+
+                    <!-- Formulaire d'Achat Direct -->
+                    <div class="mini-checkout-wrapper" id="order-section">
+                        <h3>⚡ Formulaire de Commande Express</h3>
+                        <p class="form-sub">Remplissez vos coordonnées pour être livré gratuitement à domicile ou au bureau.</p>
+                        
+                        <form name="commande-rapide" method="POST" netlify id="orderForm" class="order-form"
+                              data-product-name="Tondeuse Professionnelle WAIKIL KM-809A"
+                              data-price1="11000"
+                              data-price2="20000"
+                              data-price3="28000"
+                              data-price-text1="1 Tondeuse WAIKIL (11 000 FCFA)"
+                              data-price-text2="2 Tondeuses WAIKIL (20 000 FCFA - Duo 🔥)"
+                              data-price-text3="3 Tondeuses WAIKIL (28 000 FCFA - Trio 🔥)">
+                            
+                            <input type="hidden" name="form-name" value="commande-rapide">
+                            <input type="hidden" name="productName" value="Tondeuse Professionnelle WAIKIL KM-809A">
+                            
+                            <div class="form-group">
+                                <label for="fullName">Nom & Prénom <span class="required">*</span></label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-user"></i>
+                                    <input type="text" id="fullName" name="fullName" placeholder="Ex: Alfred Kafando" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phoneNumber">Numéro de Téléphone (WhatsApp) <span class="required">*</span></label>
+                                <div class="input-wrapper">
+                                    <i class="fa-brands fa-whatsapp"></i>
+                                    <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="Ex: +226 58 90 98 06" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="city">Ville & Quartier <span class="required">*</span></label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                    <input type="text" id="city" name="city" placeholder="Ex: Ouagadougou, Pissy" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="landmark">Point de repère pour le livreur (Facultatif)</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-map-pin"></i>
+                                    <input type="text" id="landmark" name="landmark" placeholder="Ex: Près de la station Shell ou de la pharmacie">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="quantity">Quantité souhaitée <span class="required">*</span></label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-layer-group"></i>
+                                    <select id="quantity" name="quantity">
+                                        <option value="1" selected>1 Tondeuse WAIKIL (11 000 FCFA)</option>
+                                        <option value="2">2 Tondeuses WAIKIL (20 000 FCFA - Pack Duo 🔥)</option>
+                                        <option value="3">3 Tondeuses WAIKIL (28 000 FCFA - Pack Trio 🔥)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="total-display">
+                                <span>Total à payer (Livraison Gratuite) :</span>
+                                <strong id="totalPrice">11 000 FCFA</strong>
+                            </div>
+
+                            <button type="submit" class="btn-submit pulse" id="btnSubmitOrder">
+                                <i class="fa-brands fa-whatsapp"></i> VALIDER MA COMMANDE
+                            </button>
+                            <p class="form-footer-note"><i class="fa-solid fa-shield-halved"></i> Aucun paiement en ligne requis. Vous payez à la livraison.</p>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Onglets Interactifs (Tabs Shopify Style) -->
+        <section class="tabs-section" id="tabsSection">
+            <div class="tabs-container">
+                <div class="tabs-header">
+                    <button class="tab-btn active" data-tab="description">📖 Description</button>
+                    <button class="tab-btn" data-tab="specs">⚙️ Fiche Technique</button>
+                    <button class="tab-btn" data-tab="shipping">🚚 Livraison & Garanties</button>
+                    <button class="tab-btn" data-tab="reviews">💬 Avis Clients (28)</button>
+                </div>
+                
+                <div class="tabs-content">
+                    <!-- Onglet 1: Description -->
+                    <div class="tab-pane active" id="tab-description">
+                        <div class="tab-desc-content">
+                            <h3>Une tondeuse de niveau professionnel pour la maison</h3>
+                            <p>Vous recherchez la puissance d'un salon de coiffure avec le confort d'un rasage à domicile ? La tondeuse WAIKIL KM-809A est conçue avec un puissant moteur de 12W capable de couper les cheveux les plus épais sans aucun effort, tout en restant extrêmement silencieuse.</p>
+                            
+                            <div class="gesture-guide">
+                                <h4>💡 Ses atouts majeurs :</h4>
+                                <div class="gesture-grid">
+                                    <div class="gesture-card">
+                                        <span class="gesture-icon">📊</span>
+                                        <h5>Écran LCD Intelligent</h5>
+                                        <p>Affiche le pourcentage exact de batterie disponible (de 0 à 100%). Ne soyez jamais pris de court au milieu d'une coupe.</p>
+                                    </div>
+                                    <div class="gesture-card">
+                                        <span class="gesture-icon">🎚️</span>
+                                        <h5>Levier Ajustable Précis</h5>
+                                        <p>Ajustez facilement la hauteur des lames à l'aide du levier latéral. Parfait pour réaliser des dégradés impeccables sans changer de sabot.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="desc-feature-highlight">
+                                <img src="waikil-kit.jpg" alt="Kit complet tondeuse WAIKIL KM-809A">
+                                <div>
+                                    <h4>Kit de Coiffure Complet Inclus</h4>
+                                    <p>Votre tondeuse WAIKIL KM-809A est livrée avec tous les accessoires indispensables : <strong>4 sabots de coupe</strong> de longueurs différentes (3mm, 6mm, 10mm, 13mm) pour varier vos styles, son chargeur adaptateur secteur robuste, un capot de protection des lames, une brosse de nettoyage et un flacon d'huile de maintenance.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Onglet 2: Fiche Technique -->
+                    <div class="tab-pane" id="tab-specs">
+                        <div class="specs-table-wrapper">
+                            <table class="specs-table">
+                                <thead>
+                                    <tr>
+                                        <th>Caractéristique</th>
+                                        <th>Spécification Réelle</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Type d'appareil</strong></td>
+                                        <td>Tondeuse électrique professionnelle sans fil (et utilisable avec fil)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Puissance moteur</strong></td>
+                                        <td>12W haute efficacité et coupe rapide</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Autonomie</strong></td>
+                                        <td>Batterie Lithium-ion rechargeable offrant de 120 à 240 minutes d'utilisation continue</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Écran de contrôle</strong></td>
+                                        <td>Affichage numérique LCD pour le niveau de batterie (en %) et indicateur de charge</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Lames</strong></td>
+                                        <td>Acier inoxydable haute précision avec levier d'ajustement latéral (0,5 mm à 15 mm)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Sabots fournis</strong></td>
+                                        <td>4 guides de coupe interchangeables (3, 6, 10 et 13 mm)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Alimentation</strong></td>
+                                        <td>Chargeur secteur robuste (100V-240V universel), fiche européenne standard</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Onglet 3: Livraison & Garanties -->
+                    <div class="tab-pane" id="tab-shipping">
+                        <div class="shipping-info-grid">
+                            <div class="shipping-card">
+                                <i class="fa-solid fa-truck-fast"></i>
+                                <h4>Livraison Gratuite & Rapide</h4>
+                                <p><strong>Zéro frais de port !</strong> Livraison 100% gratuite sous 24h à 48h à Ouagadougou et Conakry par nos livreurs dédiés. Pour l'intérieur, livraison via gares routières partenaires.</p>
+                            </div>
+                            <div class="shipping-card">
+                                <i class="fa-solid fa-hand-holding-dollar"></i>
+                                <h4>Paiement Sécurisé COD</h4>
+                                <p><strong>Paiement à la livraison !</strong> Vous ne payez rien en ligne. Vous réglez la somme en espèces directement au livreur après avoir ouvert et vérifié votre colis.</p>
+                            </div>
+                            <div class="shipping-card">
+                                <i class="fa-solid fa-rotate-left"></i>
+                                <h4>Garantie Qualité de 7 Jours</h4>
+                                <p>Toutes nos tondeuses sont testées avant livraison. En cas de défaut technique constaté sous 7 jours, nous procédons à un échange gratuit ou un remboursement.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Onglet 4: Avis Clients -->
+                    <div class="tab-pane" id="tab-reviews">
+                        <div class="reviews-tab-content">
+                            <div class="reviews-summary-box">
+                                <div class="rating-number">4.9</div>
+                                <div>
+                                    <div class="stars">
+                                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                    </div>
+                                    <p>Moyenne basée sur 28 retours clients vérifiés au Burkina Faso et en Guinée</p>
+                                </div>
+                            </div>
+                            
+                            <div class="reviews-list">
+                                <div class="review-item">
+                                    <div class="review-header">
+                                        <strong>Issouf S.</strong>
+                                        <span class="review-date">Ouagadougou, Burkina Faso</span>
+                                    </div>
+                                    <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                                    <p>"Cette tondeuse est fantastique. Le moteur est vraiment puissant de 12W, rien à voir avec les petites tondeuses ordinaires. L'écran qui indique la batterie à 100% est hyper pratique. Très bon achat à 11 000 FCFA avec livraison gratuite."</p>
+                                </div>
+                                <div class="review-item">
+                                    <div class="review-header">
+                                        <strong>Drissa O.</strong>
+                                        <span class="review-date">Ouagadougou, Somgandé</span>
+                                    </div>
+                                    <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i></div>
+                                    <p>"La tondeuse coupe très bien et le réglage latéral de la hauteur est très solide. Le câble de charge est long et on peut l'utiliser directement branchée si on veut. Livrée en 24 heures chez moi."</p>
+                                </div>
+                                <div class="review-item">
+                                    <div class="review-header">
+                                        <strong>Alphonse K.</strong>
+                                        <span class="review-date">Koudougou, Burkina Faso</span>
+                                    </div>
+                                    <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                                    <p>"Super qualité ! J'ai commandé le pack de 2 tondeuses à 20 000 FCFA pour moi et mon fils. Reçu en parfait état via bus TSR, très bien emballé. Je recommande vivement."</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section FAQ (Foire aux questions) -->
+        <section class="faq-section" id="faqSection">
+            <div class="section-title">
+                <h2>Questions Fréquentes</h2>
+                <p>Des questions sur la tondeuse WAIKIL ? Voici nos réponses.</p>
+            </div>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Puis-je l'utiliser branchée sur secteur si la batterie est déchargée ?</span>
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Oui, absolument ! Cette tondeuse dispose d'un double mode d'alimentation. Vous pouvez l'utiliser de manière autonome sans fil ou la brancher directement sur une prise électrique avec son chargeur secteur si la batterie est à plat.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Comment fonctionne l'écran LCD de contrôle ?</span>
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>L'écran LCD s'allume automatiquement lorsque la tondeuse est sous tension. Il affiche un chiffre de 0 à 100 correspondant au pourcentage restant d'autonomie de la batterie, ce qui vous indique précisément le moment où il faut la recharger.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Quels sont les sabots de coupe fournis ?</span>
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>La tondeuse est livrée avec 4 guides de coupe interchangeables de tailles standard : 3 mm, 6 mm, 10 mm et 13 mm, vous permettant de réaliser des tontes de cheveux et de barbes de différentes longueurs de manière très précise.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Pied de page / Footer -->
+    <footer class="main-footer" id="mainFooter">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <span class="logo-accent">Promo</span>Market
+            </div>
+            <p>Votre boutique de confiance en Afrique de l'Ouest pour du matériel de qualité professionnelle.</p>
+            <div class="footer-contact">
+                <p><i class="fa-solid fa-envelope"></i> contact@promomarket.com</p>
+                <p><i class="fa-brands fa-whatsapp"></i> Service Client WhatsApp : +226 58 90 98 06</p>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 PromoMarket. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Barre d'achat collante mobile (Sticky Buy Bar) -->
+    <div class="sticky-buy-bar" id="stickyBuyBar">
+        <div class="sticky-bar-container">
+            <div class="sticky-bar-info">
+                <strong>Tondeuse WAIKIL</strong>
+                <span class="sticky-price">11 000 FCFA</span>
+            </div>
+            <a href="#order-section" class="sticky-bar-btn" id="stickyBuyBtn">Acheter Maintenant</a>
+        </div>
+    </div>
+
+    <!-- Widget WhatsApp Flottant -->
+    <a href="https://wa.me/22658909806" class="whatsapp-float-widget" id="whatsappWidget" target="_blank">
+        <div class="widget-avatar-container">
+            <img src="waikil-trimmer.jpg" alt="Alfred PromoMarket">
+            <span class="online-indicator"></span>
+        </div>
+        <div class="widget-text-container">
+            <strong>Alfred</strong>
+            <span>En ligne (Répond en 2min)</span>
+        </div>
+        <div class="whatsapp-widget-icon">
+            <i class="fa-brands fa-whatsapp"></i>
+        </div>
+    </a>
+
+    <!-- Script JavaScript -->
+    <script src="app.js"></script>
+</body>
+</html>
