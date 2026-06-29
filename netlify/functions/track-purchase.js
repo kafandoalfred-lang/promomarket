@@ -10,6 +10,46 @@ function hashSHA256(data) {
     return crypto.createHash('sha256').update(cleaned).digest('hex');
 }
 
+/**
+ * Insérer une commande dans la table Supabase via son API REST native (HTTPS)
+ */
+function insertOrderToSupabase(url, anonKey, orderData) {
+    return new Promise((resolve, reject) => {
+        const postData = JSON.stringify(orderData);
+        const cleanUrl = url.replace(/\/$/, ""); // Enlever le slash final si présent
+        const hostname = cleanUrl.replace("https://", "");
+        
+        const options = {
+            hostname: hostname,
+            port: 443,
+            path: '/rest/v1/commandes',
+            method: 'POST',
+            headers: {
+                'apikey': anonKey,
+                'Authorization': `Bearer ${anonKey}`,
+                'Content-Type': 'application/json',
+                'Prefer': 'return=minimal',
+                'Content-Length': Buffer.byteLength(postData)
+            }
+        };
+
+        const req = https.request(options, (res) => {
+            let data = '';
+            res.on('data', (chunk) => { data += chunk; });
+            res.on('end', () => {
+                resolve({ statusCode: res.statusCode, body: data });
+            });
+        });
+
+        req.on('error', (e) => {
+            reject(e);
+        });
+
+        req.write(postData);
+        req.end();
+    });
+}
+
 exports.handler = async (event, context) => {
     // Gérer le CORS pré-vol (preflight request OPTIONS)
     if (event.httpMethod === 'OPTIONS') {
@@ -34,122 +74,144 @@ exports.handler = async (event, context) => {
 
     try {
         const body = JSON.parse(event.body);
-        const { fullName, phoneNumber, productName, value, currency, orderId, testEventCode } = body;
+        const { fullName, phoneNumber, productName, value, currency, orderId, quantity, price, testEventCode } = body;
 
-        // Récupérer le token d'accès depuis les variables d'environnement de Netlify
+        // -------------------------------------------------------------
+        // 1. GESTION DES CLÉS DE CONFIGURATION
+        // -------------------------------------------------------------
         const accessToken = process.env.META_ACCESS_TOKEN;
         const pixelId = '1580750226796883'; // ID du Pixel d'Alfred
+        const supabaseUrl = process.env.SUPABASE_URL;
+        const supabaseAnonKey = process.env.SUPABASE_ANON_KEY;
 
-        if (!accessToken) {
-            console.error("META_ACCESS_TOKEN n'est pas configuré dans les variables d'environnement de Netlify !");
-            return {
-                statusCode: 500,
-                body: JSON.stringify({ error: 'Configuration Error: META_ACCESS_TOKEN is missing' })
-            };
-        }
-
-        // Normalisation simple du numéro de téléphone pour l'Afrique de l'Ouest
+        // Normalisation simple du numéro de téléphone
         let cleanPhone = (phoneNumber || '').replace(/[^0-9]/g, '');
-        // Si c'est un numéro local burkinabè à 8 chiffres (ex: 70000000), on ajoute l'indicatif pays
         if (cleanPhone.length === 8) {
-            cleanPhone = '226' + cleanPhone;
+            cleanPhone = '226' + cleanPhone; // Burkina par défaut
         }
 
-        // Hachage des données d'identification (exigé par Facebook)
-        const hashedPhone = hashSHA256(cleanPhone);
-        const hashedName = hashSHA256(fullName);
+        const promises = [];
 
-        // Récupérer l'IP du client et le User Agent depuis les en-têtes Netlify
-        const clientIp = event.headers['client-ip'] || event.headers['x-forwarded-for'] || '';
-        const clientUserAgent = event.headers['user-agent'] || '';
+        // -------------------------------------------------------------
+        // 2. ENVOI A META CONVERSIONS API
+        // -------------------------------------------------------------
+        if (accessToken) {
+            const hashedPhone = hashSHA256(cleanPhone);
+            const hashedName = hashSHA256(fullName);
+            const clientIp = event.headers['client-ip'] || event.headers['x-forwarded-for'] || '';
+            const clientUserAgent = event.headers['user-agent'] || '';
 
-        // Préparation du payload pour l'API de Conversions de Meta
-        const metaEventPayload = {
-            data: [
-                {
-                    event_name: 'Purchase',
-                    event_time: Math.floor(Date.now() / 1000),
-                    event_id: orderId, // Identifiant unique partagé avec le Pixel navigateur pour le dédoublonnement
-                    event_source_url: event.headers['referer'] || '',
-                    action_source: 'website',
-                    user_data: {
-                        ph: hashedPhone ? [hashedPhone] : [],
-                        fn: hashedName ? [hashedName] : [],
-                        client_ip_address: clientIp,
-                        client_user_agent: clientUserAgent
-                    },
-                    custom_data: {
-                        value: parseFloat(value) || 15000,
-                        currency: currency || 'XOF',
-                        content_name: productName || 'Produit PromoMarket',
-                        content_type: 'product'
+            const metaEventPayload = {
+                data: [
+                    {
+                        event_name: 'Purchase',
+                        event_time: Math.floor(Date.now() / 1000),
+                        event_id: orderId,
+                        event_source_url: event.headers['referer'] || '',
+                        action_source: 'website',
+                        user_data: {
+                            ph: hashedPhone ? [hashedPhone] : [],
+                            fn: hashedName ? [hashedName] : [],
+                            client_ip_address: clientIp,
+                            client_user_agent: clientUserAgent
+                        },
+                        custom_data: {
+                            value: parseFloat(value) || 15000,
+                            currency: currency || 'XOF',
+                            content_name: productName || 'Produit PromoMarket',
+                            content_type: 'product'
+                        }
                     }
-                }
-            ]
-        };
+                ]
+            };
 
-        // Si un code de test d'événement est fourni pour les tests en direct
-        if (testEventCode) {
-            metaEventPayload.test_event_code = testEventCode;
-            console.log("Mode Test activé avec le code : " + testEventCode);
-        }
-
-        const postData = JSON.stringify(metaEventPayload);
-        
-        // Configuration de la requête HTTPS
-        const options = {
-            hostname: 'graph.facebook.com',
-            port: 443,
-            path: `/v19.0/${pixelId}/events?access_token=${accessToken}`,
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Content-Length': Buffer.byteLength(postData)
+            if (testEventCode) {
+                metaEventPayload.test_event_code = testEventCode;
             }
-        };
 
-        // Exécution de la requête HTTPS vers Meta Graph API
-        const responseBody = await new Promise((resolve, reject) => {
-            const req = https.request(options, (res) => {
-                let data = '';
-                res.on('data', (chunk) => {
-                    data += chunk;
-                });
-                res.on('end', () => {
-                    resolve({
-                        statusCode: res.statusCode,
-                        body: data
+            const postData = JSON.stringify(metaEventPayload);
+            const options = {
+                hostname: 'graph.facebook.com',
+                port: 443,
+                path: `/v19.0/${pixelId}/events?access_token=${accessToken}`,
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Content-Length': Buffer.byteLength(postData)
+                }
+            };
+
+            const metaPromise = new Promise((resolve) => {
+                const req = https.request(options, (res) => {
+                    let data = '';
+                    res.on('data', (chunk) => { data += chunk; });
+                    res.on('end', () => {
+                        resolve({ source: 'Meta', statusCode: res.statusCode, body: data });
                     });
                 });
+                req.on('error', (e) => {
+                    resolve({ source: 'MetaError', error: e.message });
+                });
+                req.write(postData);
+                req.end();
             });
+            promises.push(metaPromise);
+        } else {
+            console.warn("META_ACCESS_TOKEN non configuré.");
+        }
 
-            req.on('error', (e) => {
-                reject(e);
-            });
+        // -------------------------------------------------------------
+        // 3. ENVOI A SUPABASE (BASE DE DONNEES)
+        // -------------------------------------------------------------
+        if (supabaseUrl && supabaseAnonKey) {
+            const orderData = {
+                full_name: fullName,
+                phone_number: cleanPhone,
+                city: body.city || 'Non spécifiée',
+                landmark: body.landmark || 'Non spécifié',
+                product_name: productName,
+                quantity: parseInt(quantity) || 1,
+                price: price || `${value} FCFA`,
+                numeric_price: parseInt(value) || 15000,
+                order_id: orderId,
+                status: 'Nouveau'
+            };
 
-            req.write(postData);
-            req.end();
-        });
+            const supabasePromise = insertOrderToSupabase(supabaseUrl, supabaseAnonKey, orderData)
+                .then(res => {
+                    return { source: 'Supabase', statusCode: res.statusCode, body: res.body };
+                })
+                .catch(err => {
+                    return { source: 'SupabaseError', error: err.message };
+                });
+            promises.push(supabasePromise);
+        } else {
+            console.warn("Variables d'environnement Supabase non configurées.");
+        }
 
-        console.log(`Réponse Meta Conversions API (Status ${responseBody.statusCode}):`, responseBody.body);
+        // Attendre la résolution de toutes les intégrations en parallèle
+        const results = await Promise.all(promises);
+        console.log("Résultats des intégrations :", results);
+
+        // Trouver le statut de la réponse
+        const metaResult = results.find(r => r.source === 'Meta');
+        const supabaseResult = results.find(r => r.source === 'Supabase');
 
         return {
             statusCode: 200,
             headers: {
                 "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Headers": "Content-Type",
-                "Access-Control-Allow-Methods": "POST, OPTIONS",
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ 
-                success: responseBody.statusCode === 200, 
-                statusCode: responseBody.statusCode,
-                details: JSON.parse(responseBody.body)
+            body: JSON.stringify({
+                success: true,
+                meta: metaResult ? { statusCode: metaResult.statusCode } : null,
+                supabase: supabaseResult ? { statusCode: supabaseResult.statusCode } : null
             })
         };
 
     } catch (error) {
-        console.error("Erreur serveur dans la fonction Netlify track-purchase :", error);
+        console.error("Erreur globale dans la fonction Netlify :", error);
         return {
             statusCode: 500,
             headers: {

@@ -292,7 +292,7 @@ Merci de confirmer ma commande pour la livraison !`;
             redirectUser();
         }, 1500);
 
-        // 1c. Préparer le tracking Facebook Conversions API (Server-side via Netlify Functions)
+        // 1c. Préparer le tracking Facebook Conversions API & Envoi Supabase (Server-side via Netlify Functions)
         const capiPromise = fetch("/.netlify/functions/track-purchase", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -303,6 +303,10 @@ Merci de confirmer ma commande pour la livraison !`;
                 value: numericPrice,
                 currency: 'XOF',
                 orderId: orderId,
+                quantity: Number(quantityVal),
+                price: finalPrice,
+                city: city,
+                landmark: landmark,
                 testEventCode: META_TEST_EVENT_CODE
             })
         })
